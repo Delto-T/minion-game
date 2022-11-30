@@ -1,12 +1,26 @@
+// Library
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Component
+import App from './App';
+
+//Redux
+import { Provider } from 'react-redux'; // Permet de relier redux à react
+import { configureStore } from '@reduxjs/toolkit'; 
+import reducer from './store/minions';
+
+const store = configureStore({reducer});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    
+    {/*Permet de diffuser le store via le Provider dans l'ensemble de App et de ses sous component*/}
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
