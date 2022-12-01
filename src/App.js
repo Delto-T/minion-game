@@ -1,29 +1,16 @@
-import React, { useState } from 'react';
+// Library
+import React from 'react';
 import classes from './App.module.css';
+
+// Components
 import Header from './Components/Header/Header';
 import Commander from './Components/Commander/Commander';
 
-function App() {
+//Redux
+import {connect} from 'react-redux';
 
-  // State
-  const [minions, setMinions] = useState(0);
+function App(props) {
 
-  // Fonctions
-  const createMinionClickedHandler = () => {
-    setMinions(minions + 1);
-  }
-
-  const destroyMinionClickedHandler = () => {
-    setMinions(minions - 1);
-  }
-
-  const createTeamClickedHandler = () => {
-    setMinions(minions + 5);
-  }
-
-  const destroyTeamClickedHandler = () => {
-    setMinions(minions - 5);
-  }
 
   return (
     <div className={classes.App}>
@@ -33,19 +20,47 @@ function App() {
         <div className={classes.content}>
           <h1>À la conquête du monde</h1>
           <div className={classes.minions}>
-            <span>{minions}</span>
+            <span>{props.minions}</span>
             minions infiltrés
           </div>
         </div>
 
-        <Commander
-          createMinion={createMinionClickedHandler}
-          destroyMinion={destroyMinionClickedHandler}
-          createTeam={createTeamClickedHandler}
-          destroyTeam={destroyTeamClickedHandler} />
+        <Commander />
       </div>
     </div>
   );
 }
 
-export default App;
+
+/* 
+Abonnement au state
+
+mapStateToProps est le nom par convention
+Le but est de passer les informations contenus dans notre state directement
+dans les props
+
+mapStateToProps va etre envoyer dans connect qui va aller chercher les valeurs
+recherchées par la fonction directement dans le state redux
+*/
+const mapStateToProps = state => {
+  return {
+    minions: state.minions,
+    error: state.error
+  };
+};
+
+export default connect(mapStateToProps)(App);
+
+/* 
+connect est un HOC, il doit englober le composant App.
+Lorsque connect est appelé "connect()" il va renvoyer une fonction qui va 
+récuperer comme argument App d'ou la notation un peu particulière
+connect(mapStateToProps)(App)
+
+1- connect envoie la méthode mapStateToProps vers redux
+2- mapStateToProps va récupére les valeurs recherchées dans le state de redux
+3- react-redux renvoie une fonction qui prend App en argument et qui donner
+le return de mapStateToProps  comme Props du component App
+
+A la fin props = {minions: 0}
+*/
