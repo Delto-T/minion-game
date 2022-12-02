@@ -9,8 +9,15 @@ import App from './App';
 
 //Redux
 import { Provider } from 'react-redux'; // Permet de relier redux à react
-import { configureStore } from '@reduxjs/toolkit'; 
-import reducer from './store/minions';
+import { configureStore, combineReducers } from '@reduxjs/toolkit'; 
+import minionsReducer from './store/reducers/minions';
+import saveReducer from './store/reducers/save'
+
+//combiner les reducers
+const reducer = combineReducers({
+  minion: minionsReducer,
+  save: saveReducer
+});
 
 const store = configureStore({reducer});
 

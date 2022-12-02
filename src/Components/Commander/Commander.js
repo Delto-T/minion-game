@@ -4,14 +4,15 @@ import styles from './Commander.module.css';
 
 //Redux
 import {connect} from 'react-redux';
+import actionTypes from '../../store/actions';
 
 function Commander(props) {
     return (
         <div className={styles.Commander}>
             <button onClick={props.createMinion}>Créer un minion</button>
             <button onClick={props.destroyMinion}>Détruire un minion</button>
-            <button onClick={props.createTeam}>Créer une équipe de 5 minions</button>
-            <button onClick={props.destroyTeam}>Détruire une équipe de 5 minions</button>
+            <button onClick={() => props.createTeam(5)}>Créer une équipe de 5 minions</button>
+            <button onClick={() => props.destroyTeam(5)}>Détruire une équipe de 5 minions</button>
         </div>
     );
 }
@@ -20,10 +21,10 @@ function Commander(props) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createMinion: () => dispatch({type: 'CREATE_MINION'}),
-        destroyMinion: () => dispatch({type: 'DESTROY_MINION'}),
-        createTeam: () => dispatch({type: 'CREATE_TEAM'}),
-        destroyTeam: () => dispatch({type: 'DESTROY_TEAM'})
+        createMinion: () => dispatch({type: actionTypes.CREATE_MINION}),
+        destroyMinion: () => dispatch({type: actionTypes.DESTROY_MINION}),
+        createTeam: (nombre) => dispatch({type: actionTypes.CREATE_TEAM, value: nombre}),
+        destroyTeam: (nombre) => dispatch({type: actionTypes.DESTROY_TEAM, value: nombre})
     };
 };
 

@@ -1,10 +1,9 @@
 //Library
-
+import actionTypes from "../actions";
 
 // State initial
 const initialState = {
-    minions: 0,
-    error: false
+    minions: 0
 };
 
 
@@ -12,21 +11,21 @@ const initialState = {
 const reducer = (state= initialState, action) => {
 
     switch(action.type){
-        case 'CREATE_MINION':
+        case actionTypes.CREATE_MINION:
             return{
                 minions: state.minions + 1
             }
-        case 'DESTROY_MINION':
+        case actionTypes.DESTROY_MINION:
             return{
                 minions: state.minions - 1
             }
-        case'CREATE_TEAM':
+        case actionTypes.CREATE_TEAM:
             return{
-                minions: state.minions + 5
+                minions: state.minions + action.value
             }
-        case 'DESTROY_TEAM':
+        case actionTypes.DESTROY_TEAM:
             return{
-                minions: state.minions - 5
+                minions: state.minions - action.value
             }
         default:
             return state;

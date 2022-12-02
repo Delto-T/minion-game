@@ -44,8 +44,7 @@ recherchées par la fonction directement dans le state redux
 */
 const mapStateToProps = state => {
   return {
-    minions: state.minions,
-    error: state.error
+    minions: state.minion.minions
   };
 };
 
