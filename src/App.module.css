@@ -17,9 +17,14 @@
 }
 
 .App .minions span {
-  font-size: 10em;
+  font-size: 8em;
   display: block
 }
 .App .minions {
   font-weight: bold;
+}
+
+.App .result{
+  display: flex;
+  justify-content: space-around;
 }

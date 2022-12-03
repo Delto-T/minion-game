@@ -2,14 +2,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 
 // Component
 import App from './App';
 
 //Redux
 import { Provider } from 'react-redux'; // Permet de relier redux à react
-import { configureStore, combineReducers } from '@reduxjs/toolkit'; 
+import { configureStore, combineReducers, MiddlewareArray } from '@reduxjs/toolkit'; 
 import minionsReducer from './store/reducers/minions';
 import saveReducer from './store/reducers/save'
 
@@ -19,12 +18,33 @@ const reducer = combineReducers({
   save: saveReducer
 });
 
-const store = configureStore({reducer});
+// Création du Middleware
+const middleware = store => {
+  return next => {
+    return action => {
+      console.log(store.getState().minion.minions);
+      console.log(action.type);
+
+      return next(action);
+      // retour l'action à Next. Il est préférable de toujours retour
+      // action car sinon on va retourner tour le temps l'action que
+      // l'on aura coder en dur.
+      // Attention si action ne retourne rien l'action sera bien envoyé mais 
+      // le state ne sera pas modifié
+    };
+  };
+};
+
+
+const store = configureStore({
+  reducer,
+  middleware: new MiddlewareArray().concat(middleware),
+  devTools: process.env.NODE_ENV !== 'production'
+  });
 
 ReactDOM.render(
   <React.StrictMode>
     
-    {/*Permet de diffuser le store via le Provider dans l'ensemble de App et de ses sous component*/}
     <Provider store={store}>
       <App/>
     </Provider>
@@ -32,7 +52,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+

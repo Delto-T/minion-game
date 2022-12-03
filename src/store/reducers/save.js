@@ -1,12 +1,11 @@
 // Library
-import actionTypes from '../actions';
+import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     history: []
 };
 
 const reducer = (state= initialState, action) => {
-
     switch(action.type) {
         case (actionTypes.SAVE):
             return {
@@ -16,7 +15,7 @@ const reducer = (state= initialState, action) => {
               })  
             }
         default:
-            return reducer;
+            return state;
     };
 
 

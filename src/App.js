@@ -1,5 +1,5 @@
 // Library
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './App.module.css';
 
 // Components
@@ -10,6 +10,21 @@ import Commander from './Components/Commander/Commander';
 import {connect} from 'react-redux';
 
 function App(props) {
+
+  //Variables
+  let history;
+
+  if(props.history && props.history != ''){
+    history = props.history.map(result => (
+      <div key={result.id} className={classes.result}>
+        <span>
+          <b>{ result.value }</b> infiltrés
+        </span>
+
+        Le {new Date(result.id).toLocaleString("fr-FR")}
+      </div>
+    ));
+  }
 
 
   return (
@@ -26,6 +41,15 @@ function App(props) {
         </div>
 
         <Commander />
+
+        {props.history && props.history != '' ?
+        <div className={classes.content}>
+          <h2>Tableau des infiltrés</h2>
+          {history}
+        </div>
+        : null
+        }
+
       </div>
     </div>
   );
@@ -44,7 +68,8 @@ recherchées par la fonction directement dans le state redux
 */
 const mapStateToProps = state => {
   return {
-    minions: state.minion.minions
+    minions: state.minion.minions,
+    history: state.save.history
   };
 };
 
