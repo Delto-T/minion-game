@@ -8,8 +8,15 @@ import Commander from './Components/Commander/Commander';
 
 //Redux
 import {connect} from 'react-redux';
+import * as actionCreators from './store/actions/index';
 
 function App(props) {
+
+  //Etat
+  useEffect( () => {
+      props.autoEnroll(props.minions)
+    }
+    ,[]);
 
   //Variables
   let history;
@@ -73,8 +80,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
-
 /* 
 connect est un HOC, il doit englober le composant App.
 Lorsque connect est appelé "connect()" il va renvoyer une fonction qui va 
@@ -88,3 +93,14 @@ le return de mapStateToProps  comme Props du component App
 
 A la fin props = {minions: 0}
 */
+
+// Récupérer les actions
+
+const mapDispatchToProps = dispatch => {
+  return{
+    autoEnroll: (minions) => dispatch(actionCreators.autoEnroll(minions))
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

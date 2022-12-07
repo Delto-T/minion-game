@@ -10,7 +10,8 @@ import App from './App';
 import { Provider } from 'react-redux'; // Permet de relier redux à react
 import { configureStore, combineReducers, MiddlewareArray } from '@reduxjs/toolkit'; 
 import minionsReducer from './store/reducers/minions';
-import saveReducer from './store/reducers/save'
+import saveReducer from './store/reducers/save';
+import thunk from 'redux-thunk';
 
 //combiner les reducers
 const reducer = combineReducers({
@@ -36,9 +37,10 @@ const middleware = store => {
 };
 
 
+
 const store = configureStore({
-  reducer,
-  middleware: new MiddlewareArray().concat(middleware),
+  reducer: reducer,
+  middleware: new MiddlewareArray().concat([middleware, thunk]),
   devTools: process.env.NODE_ENV !== 'production'
   });
 

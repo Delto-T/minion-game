@@ -7,9 +7,13 @@ const actions = {
     DESTROY_MINION: 'DESTROY_MINION',
     CREATE_TEAM: 'CREATE_TEAM',
     DESTROY_TEAM: 'DESTROY_TEAM',
+    
+    AUTO_ENROLL: 'AUTO_ENROLL',
 
     // Actions pour save
     SAVE: 'SAVE'
+
+
 }
 
 export default actions;
