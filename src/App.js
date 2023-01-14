@@ -12,11 +12,6 @@ import * as actionCreators from './store/actions/index';
 
 function App(props) {
 
-  //Etat
-  useEffect( () => {
-      props.autoEnroll(props.minions)
-    }
-    ,[]);
 
   //Variables
   let history;
@@ -94,13 +89,5 @@ le return de mapStateToProps  comme Props du component App
 A la fin props = {minions: 0}
 */
 
-// Récupérer les actions
 
-const mapDispatchToProps = dispatch => {
-  return{
-    autoEnroll: (minions) => dispatch(actionCreators.autoEnroll(minions))
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

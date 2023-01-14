@@ -2,8 +2,8 @@ export {
     createMinion,
     destroyMinion,
     createTeam,
-    destroyTeam,
-    autoEnroll
+    destroyTeam
+    
 } from './minions'
 
 export {
