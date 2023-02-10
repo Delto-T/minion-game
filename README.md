@@ -1,4 +1,4 @@
-# Portofolio
+# Minion-game
 This is a trainning project. I choose this tranning because i want to try REDUX and make my firts steps in..
 
 ## Description
